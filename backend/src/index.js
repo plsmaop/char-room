@@ -2,6 +2,7 @@ import express from 'express';
 import http from 'http';
 import SocketIO from 'socket.io';
 import connectHistoryApiFallback from 'connect-history-api-fallback';
+import UserData from './userData';
 
 // config
 const backend = express();
@@ -15,11 +16,13 @@ const userPool = [];
 // socket.io
 io.on('connection', (socket) => {
   console.log('a user connected');
-
+  socket.emit('hello', 'Hello World!');
+  socket.emit('user list', userPool);
   socket.on('adduser', (name) => {
     console.log(`add a user ${name}`);
-    userPool.push(name);
-    socket.broadcast.emit('newuser', name);
+    const user = new UserData(name, socket.id);
+    userPool.push(user);
+    io.emit('user list', userPool);
   });
 
   socket.on('disconnect', () => {

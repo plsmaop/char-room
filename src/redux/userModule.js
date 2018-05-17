@@ -5,25 +5,25 @@ export const types = {
   CREATE_SOCKET: 'CREATE_SOCKET',
   UPDATE_NAME: 'UPDATE_NAME',
   ADD_USER: 'ADD_USER',
+  UPDATE_USER_LIST: 'UPDATE_USER_LIST',
 };
 
 // action creators
 export const actions = {
-  createSocket: () => {
-    socket.createSocket();
-    return { type: types.CREATE_SOCKET };
-  },
-  updateName: (name) => {
-    socket.setUserName(name);
-    return {
-      type: types.UPDATE_NAME,
-      name,
-    };
-  },
-  addUser: () => {
-    socket.emitUserName();
-    return { type: types.ADD_USER };
-  },
+  createSocket: () => ({ type: types.CREATE_SOCKET }),
+  updateName: name => ({
+    type: types.UPDATE_NAME,
+    name,
+  }),
+  addUser: () => ({ type: types.ADD_USER }),
+  updateUserList: userList => ({
+    type: types.UPDATE_USER_LIST,
+    userList,
+  }),
+  getUserList: () => dispatch =>
+    socket.socket.on('user list', (packet) => {
+      dispatch(actions.updateUserList(packet));
+    }),
 };
 
 const initialState = {
@@ -36,10 +36,7 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case types.CREATE_SOCKET:
-      return {
-        ...state,
-        socket: action.socket,
-      };
+      return state;
     case types.UPDATE_NAME:
       return {
         ...state,
@@ -49,6 +46,11 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         isReadyToChat: !state.isReadyToChat,
+      };
+    case types.UPDATE_USER_LIST:
+      return {
+        ...state,
+        userList: action.userList.filter(user => user.name !== state.name),
       };
     default:
       return state;

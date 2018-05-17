@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
-import './addUser.css';
+import '../../style/style.css';
 
 class AddUser extends Component {
   constructor() {
@@ -9,11 +9,16 @@ class AddUser extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
-  componentDidMount() { this.props.createSocket(); }
+  componentDidMount() {
+    this.props.createSocket();
+    this.props.getUserList();
+  }
   handleChange(e) { this.props.updateName(e.target.value.trim()); }
   handleKeyPress(e) {
-    if (e.key === 'Enter' && this.props.name.trim()) {
-      this.props.addUser();
+    const { name, userList, addUser } = this.props;
+    if (e.key === 'Enter' && name.trim()) {
+      if (userList.includes(name)) alert('你取的暱稱已經有人取了，請換一個');
+      else addUser();
     }
   }
   render() {
@@ -34,9 +39,11 @@ class AddUser extends Component {
 
 AddUser.propTypes = {
   name: PropTypes.string.isRequired,
+  userList: PropTypes.arrayOf(String).isRequired,
   updateName: PropTypes.func.isRequired,
   addUser: PropTypes.func.isRequired,
   createSocket: PropTypes.func.isRequired,
+  getUserList: PropTypes.func.isRequired,
 };
 
 export default AddUser;

@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import UserList from './userList';
-import { actions } from '../../redux/socketModule';
 
-const { createSocket } = actions;
+const mapStateToProps = state => ({
+  userList: state.userModule.userList,
+});
 
-export default connect(null, { createSocket })(UserList);
+export default connect(mapStateToProps, null)(UserList);
