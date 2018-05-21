@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
-import Paper from 'material-ui/Paper';
+import { Row, IconButton, SendIcon } from '@livechat/ui-kit';
 import '../../style/style.css';
 
 const style = {
-  width: '100%',
-  marginBottom: '0',
+  color: '#3f51b5',
+  borderColor: '#3f51b5',
 };
 
 class EnterMsg extends Component {
@@ -22,15 +22,20 @@ class EnterMsg extends Component {
   render() {
     return (
       <div className="container entermsg" >
-
+        <Row>
           <TextField
             floatingLabelText="請輸入訊息"
             value={this.props.msg}
-            style={style}
+            fullWidth={true}
+            underlineFocusStyle={style}
+            floatingLabelFocusStyle={style}
             onChange={e => this.handleChange(e)}
             onKeyPress={e => this.handleKeyPress(e)}
           />
-
+          <IconButton>
+            <SendIcon onClick={() => this.props.sendMsg()} />
+          </IconButton>
+        </Row>
       </div>
     );
   }

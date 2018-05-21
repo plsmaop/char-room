@@ -7,6 +7,8 @@ export const types = {
   SEND_MSG: 'SEND_MSG',
   UPDATE_INPUT_MSG: 'UPDATE_INPUT_MSG',
   UPDATE_CHAT_HISTORY: 'UPDATE_CHAT_HISTORY',
+  START_LISTEN: 'START_LISTEN',
+  RECEIVE_NEW_MSG: 'RECEIVE_NEW_MSG',
 };
 
 // action creators
@@ -32,6 +34,13 @@ export const actions = {
     type: types.UPDATE_CHAT_HISTORY,
     msgPacket,
   }),
+  receiveNewMsg: msgPacket => ({
+    type: types.RECEIVE_NEW_MSG,
+    msgPacket,
+  }),
+  startListen: () => ({
+    type: types.START_LISTEN,
+  }),
 };
 
 // initial state
@@ -40,17 +49,22 @@ const initialState = {
   targetName: '',
   chatHistory: [],
   msg: '',
+  newMsgList: {},
 };
 
 // reducer
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case types.CHAT:
+    case types.CHAT: {
+      const msgList = { ...state.newMsgList };
+      msgList[action.targetId] = undefined;
       return {
         ...state,
         targetId: action.targetId,
         targetName: action.targetName,
+        newMsgList: msgList,
       };
+    }
     case types.LOAD_CHAT_HISTORY:
       return {
         ...state,
@@ -74,6 +88,15 @@ export default (state = initialState, action = {}) => {
         ...state,
         chatHistory: state.chatHistory.concat([action.msgPacket]),
       };
+    case types.RECEIVE_NEW_MSG: {
+      const { from, msg } = action.msgPacket;
+      const msgList = { ...state.newMsgList };
+      msgList[from] = msg;
+      return {
+        ...state,
+        newMsgList: msgList,
+      };
+    }
     default:
       return state;
   }
@@ -84,10 +107,8 @@ export const chatMiddleware = store => next => (action) => {
   const { msg } = store.getState().chatModule;
   const result = next(action);
   switch (action.type) {
-    case types.CHAT:
-      socket.createChatRoom(id, action.targetId);
-      socket.socket.removeListener('load chat history');
-      socket.socket.removeListener('msg');
+    case types.START_LISTEN:
+      console.log('start listen');
       store.dispatch(actions.updateChatHistory([]));
       socket.socket.on('load chat history', chatHistory =>
         store.dispatch(actions.loadChatHistory(chatHistory)));
@@ -96,7 +117,11 @@ export const chatMiddleware = store => next => (action) => {
         console.log(msgPacket);
         const { targetId } = store.getState().chatModule;
         if (from === id || from === targetId) store.dispatch(actions.updateChatHistory(msgPacket));
+        else store.dispatch(actions.receiveNewMsg(msgPacket));
       });
+      break;
+    case types.CHAT:
+      socket.createChatRoom(id, action.targetId);
       break;
     case types.SEND_MSG: {
       const { targetId } = store.getState().chatModule;

@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import RWDSideBar from '../components/RWDSideBar';
+import ChatRoom from './chatRoom';
 import AddUser from './addUser';
 
 const App = ({ isReadyToChat }) => (
   <div className="mx-auto">
-    { isReadyToChat ? <RWDSideBar /> : <AddUser /> }
+    { isReadyToChat ? <ChatRoom /> : <AddUser /> }
   </div>
 );
 

@@ -15,6 +15,8 @@ const port = process.env.PORT || 3001;
 
 // user data
 let userPool = [];
+const robot = new UserData('Badass Robot', 'suck');
+userPool.push(robot);
 
 // chat history
 const chatHistory = {};
@@ -55,9 +57,19 @@ io.on('connection', (socket) => {
     const chatHistoryEntry1 = from + to;
     const chatHistoryEntry2 = to + from;
     chatHistory[chatHistoryEntry1].push(msgPacket);
+    io.to(from).emit('msg', msgPacket);
     console.log(chatHistory[chatHistoryEntry1]);
     console.log(chatHistory[chatHistoryEntry2]);
-    io.to(from).emit('msg', msgPacket);
+    if (to === 'suck') {
+      const badAssPacket = {
+        from: 'suck',
+        to: from,
+        msg: 'You Suck!!',
+      };
+      io.to(from).emit('msg', badAssPacket);
+      chatHistory[chatHistoryEntry1].push(badAssPacket);
+      return;
+    }
     io.to(to).emit('msg', msgPacket);
   });
 

@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import '../../style/style.css';
 
+const style = {
+  color: '#3f51b5',
+  borderColor: '#3f51b5',
+};
+
 class AddUser extends Component {
   constructor() {
     super();
@@ -27,10 +32,13 @@ class AddUser extends Component {
     const { handleChange } = this;
     return (
       <div className="container col-md-5 adduser">
+        <h2>歡迎來到匿名交友聊天室</h2>
         <TextField
           hintText={name}
-          floatingLabelText="請輸入暱稱"
+          floatingLabelText="請輸入暱稱開始聊天"
           onChange={e => handleChange(e)}
+          underlineFocusStyle={style}
+          floatingLabelFocusStyle={style}
           onKeyPress={e => this.handleKeyPress(e)}
         />
       </div>

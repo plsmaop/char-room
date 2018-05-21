@@ -4,6 +4,7 @@ import { actions } from '../../redux/chatModule';
 
 const mapStateToProps = state => ({
   userList: state.userModule.userList,
+  newMsgList: state.chatModule.newMsgList,
 });
 
 const { chat } = actions;

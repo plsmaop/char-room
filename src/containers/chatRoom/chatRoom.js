@@ -10,8 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
-import UserList from '../containers/userList';
-import Chat from '../containers/chat';
+import UserList from '../userList';
+import Chat from '../chat';
 
 const drawerWidth = 240;
 
@@ -66,6 +66,9 @@ class ResponsiveDrawer extends React.Component {
       mobileOpen: false,
     };
   }
+  componentDidMount() {
+    this.props.startListen();
+  }
   handleDrawerToggle() {
     this.setState(prevState => ({ mobileOpen: !prevState.mobileOpen }));
   }
@@ -73,7 +76,7 @@ class ResponsiveDrawer extends React.Component {
     const { classes, theme } = this.props;
     const drawer = (
       <div>
-        <div className={classes.toolbar} />
+        <div className={classes.toolbar} style={{ 'background-color': '#3f51b5' }} />
         <Divider />
         <UserList />
       </div>
@@ -102,6 +105,7 @@ class ResponsiveDrawer extends React.Component {
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={this.state.mobileOpen}
             onClose={() => this.handleDrawerToggle()}
+            onClick={() => this.handleDrawerToggle()}
             classes={{ paper: classes.drawerPaper }}
             ModalProps={{ keepMounted: true }}
           >
@@ -121,7 +125,9 @@ class ResponsiveDrawer extends React.Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Chat />
+          {
+            this.props.targetName.length === 0 ? null : <Chat />
+          }
         </main>
       </div>
     );
@@ -131,6 +137,8 @@ class ResponsiveDrawer extends React.Component {
 ResponsiveDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
+  startListen: PropTypes.func.isRequired,
+  targetName: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);

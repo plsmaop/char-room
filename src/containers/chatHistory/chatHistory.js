@@ -1,11 +1,13 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
 import PropTypes from 'prop-types';
+import { Message, MessageText, MessageList } from '@livechat/ui-kit';
 
 const style = {
   height: 500,
   maxHeight: 500,
   width: '100%',
+  maxwidth: '100%',
   textAlign: 'center',
   overflow: 'auto',
   display: 'inline-block',
@@ -28,18 +30,34 @@ class ChatHistory extends React.Component {
     return (
       <div>
         <Paper style={style} zDepth={1} >
-          <div className="container">
-            {
-              this.props.chatHistory.map((msgObject) => {
-              const { from, msg } = msgObject;
-              let msgComponent;
-              if (from === this.props.targetId) {
-                msgComponent = (<p className="text-left">{msg}</p>);
+          <div>
+            <MessageList active>
+              {
+                this.props.chatHistory.map((msgObject) => {
+                const { from, msg } = msgObject;
+                let msgComponent;
+                if (from === this.props.targetId) {
+                  msgComponent = (
+                    <Message authorName={this.props.targetName}>
+                      <MessageText
+                        style={{ maxWidth: '300', textAlign: 'left' }}
+                      >{msg}
+                      </MessageText>
+                    </Message>
+                  );
+                }
+                else msgComponent = (
+                  <Message isOwn={true} authorName="me" >
+                    <MessageText
+                      style={{ maxWidtt: '300', textAlign: 'left' }}
+                    >{msg}
+                    </MessageText>
+                  </Message>
+                );
+                return msgComponent;
+                })
               }
-              else msgComponent = (<p className="text-right">{msg}</p>);
-              return msgComponent;
-              })
-            }
+            </MessageList>
           </div>
           <div
             style={{ float: 'left', clear: 'both' }}
