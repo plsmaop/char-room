@@ -5,13 +5,27 @@ class Socket {
     this.socket = undefined;
   }
   createSocket() {
-    this.socket = io();
-  }
-  setUserName(name) {
-    this.name = name;
+    this.socket = io(
+      'http://localhost:3001',
+      {
+        transports: ['websocket'],
+        upgrade: false,
+      },
+    );
   }
   emitUserName(name) {
-    this.socket.emit('adduser', name);
+    this.socket.emit('add user', name);
+  }
+  createChatRoom(id, targetId) {
+    this.socket.emit('create chat room', { id, targetId });
+  }
+  emitMsg(id, targetId, msg) {
+    const msgPacket = {
+      from: id,
+      to: targetId,
+      msg,
+    };
+    this.socket.emit('msg', msgPacket);
   }
 }
 

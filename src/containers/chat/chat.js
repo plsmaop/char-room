@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import '../../style/style.css';
 import EnterMsg from '../enterMsg';
-import ChatContent from '../chatContent';
+import ChatHistory from '../chatHistory';
 
 const style = {
   textAlign: 'center',
@@ -14,7 +14,7 @@ class Chat extends Component {
     return (
       <div className="col-9 chat" >
         <Paper  zDepth={2} >
-          <ChatContent />
+          <ChatHistory />
           <EnterMsg />
         </Paper>
       </div>

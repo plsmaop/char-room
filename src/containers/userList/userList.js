@@ -6,15 +6,15 @@ import Divider from 'material-ui/Divider';
 import '../../style/style.css';
 
 const style = {
-  maxHeight: 378,
-  height: 378,
+  maxHeight: 372,
+  height: 372,
   overflow: 'auto',
 };
 
 
 class UserList extends Component {
   render() {
-    const { userList } = this.props;
+    const { userList, chat } = this.props;
     return (
       <div className="col-3 userlist" >
         <Paper zDepth={2} >
@@ -28,7 +28,7 @@ class UserList extends Component {
                   key={user.id}
                   containerElement="div"
                   className="container"
-                  onClick={() => console.log(user)}/>))
+                  onClick={() => chat(user.name, user.id)}/>))
               }
             </List>
           </Paper>
@@ -40,6 +40,7 @@ class UserList extends Component {
 
 UserList.propTypes = {
   userList: PropTypes.arrayOf(String).isRequired,
+  chat: PropTypes.func.isRequired,
 };
 
 export default UserList;

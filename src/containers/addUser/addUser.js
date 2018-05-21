@@ -17,7 +17,8 @@ class AddUser extends Component {
   handleKeyPress(e) {
     const { name, userList, addUser } = this.props;
     if (e.key === 'Enter' && name.trim()) {
-      if (userList.includes(name)) alert('你取的暱稱已經有人取了，請換一個');
+      if (userList.filter(user => user.name === name).length > 0)
+        alert('你取的暱稱已經有人取了，請換一個');
       else addUser();
     }
   }
