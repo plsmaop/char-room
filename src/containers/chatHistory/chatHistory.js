@@ -3,11 +3,12 @@ import Paper from 'material-ui/Paper';
 import PropTypes from 'prop-types';
 
 const style = {
-  height: 300,
-  maxHeight: 300,
+  height: 500,
+  maxHeight: 500,
   width: '100%',
   textAlign: 'center',
   overflow: 'auto',
+  display: 'inline-block',
 };
 
 class ChatHistory extends React.Component {
@@ -26,7 +27,6 @@ class ChatHistory extends React.Component {
   render() {
     return (
       <div>
-        <div>{this.props.targetName.length === 0 ? '   ' : this.props.targetName}</div>
         <Paper style={style} zDepth={1} >
           <div className="container">
             {

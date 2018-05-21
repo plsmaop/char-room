@@ -12,7 +12,7 @@ const style = {
 class Chat extends Component {
   render() {
     return (
-      <div className="col-9 chat" >
+      <div className="chat" >
         <Paper  zDepth={2} >
           <ChatHistory />
           <EnterMsg />

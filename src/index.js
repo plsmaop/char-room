@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter as Router } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { ThemeProvider } from '@livechat/ui-kit';
 import store from './redux/store';
 import './index.css';
 import App from './containers/App';
 
 ReactDOM.render(
   <MuiThemeProvider>
-    <Provider store={store}>
-      <Router basename="/#">
-        <App />
-      </Router>
-    </Provider>
+    <ThemeProvider>
+      <Provider store={store}>
+        <Router basename="/#">
+          <App />
+        </Router>
+      </Provider>
+    </ThemeProvider>
   </MuiThemeProvider>,
   document.getElementById('root'),
 );
