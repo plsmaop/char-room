@@ -47,7 +47,7 @@ class ChatHistory extends React.Component {
                   );
                 }
                 else msgComponent = (
-                  <Message isOwn={true} authorName="me" >
+                  <Message isOwn={true} authorName={this.props.name} >
                     <MessageText
                       style={{ maxWidth: 300, textAlign: 'left' }}
                     >{msg}
@@ -70,6 +70,7 @@ class ChatHistory extends React.Component {
 }
 
 ChatHistory.propTypes = {
+  name: PropTypes.string.isRequired,
   targetName: PropTypes.string.isRequired,
   targetId: PropTypes.string.isRequired,
   chatHistory: PropTypes.arrayOf(Object).isRequired,

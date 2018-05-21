@@ -94,11 +94,12 @@ class ResponsiveDrawer extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
-              {
-                targetName.length === 0 ? '匿名交友聊天室' : `和 ${targetName} 聊天`
-              }
-            </Typography>
+
+              <Typography variant="title" color="inherit" noWrap>
+                {
+                  targetName.length === 0 ? '匿名交友聊天室' : `和 ${targetName} 聊天`
+                }
+              </Typography>
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
@@ -140,6 +141,7 @@ ResponsiveDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   startListen: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
   targetName: PropTypes.string.isRequired,
 };
 

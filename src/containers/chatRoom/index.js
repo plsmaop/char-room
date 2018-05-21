@@ -4,6 +4,7 @@ import ChatRoom from './chatRoom';
 
 const { startListen } = actions;
 const mapStateToProps = state => ({
+  name: state.userModule.name,
   targetName: state.chatModule.targetName,
 });
 
