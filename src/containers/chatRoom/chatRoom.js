@@ -73,7 +73,7 @@ class ResponsiveDrawer extends React.Component {
     this.setState(prevState => ({ mobileOpen: !prevState.mobileOpen }));
   }
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme, targetName } = this.props;
     const drawer = (
       <div>
         <div className={classes.toolbar} style={{ 'background-color': '#3f51b5' }} />
@@ -95,7 +95,9 @@ class ResponsiveDrawer extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" noWrap>
-              匿名交友聊天室
+              {
+                targetName.length === 0 ? '匿名交友聊天室' : `和 ${targetName} 聊天`
+              }
             </Typography>
           </Toolbar>
         </AppBar>
@@ -126,7 +128,7 @@ class ResponsiveDrawer extends React.Component {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           {
-            this.props.targetName.length === 0 ? null : <Chat />
+            targetName.length === 0 ? null : <Chat />
           }
         </main>
       </div>

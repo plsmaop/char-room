@@ -1,36 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles';
-import ListItemText from '@material-ui/core/ListItemText';
 import Divider from 'material-ui/Divider';
-import { ChatList,
+import {
+  ChatList,
   ChatListItem,
   Row,
   Column,
   Title,
   Subtitle,
-  Avatar
+  Avatar,
 } from '@livechat/ui-kit';
 import '../../style/style.css';
 
-const styles = theme => ({
-  menuItem: {
-    '&:focus': {
-      backgroundColor: theme.palette.primary.main,
-      '& $primary, & $icon': {
-        color: theme.palette.common.white,
-      },
-    },
-  },
-  primary: {},
-  icon: {},
-});
-
 class UserList extends Component {
   render() {
-    const { userList, chat, classes } = this.props;
+    const { userList, chat } = this.props;
     return (
       <div className="userlist" >
         <div className="user-number">{userList.length-1}人在線</div>
@@ -66,7 +50,6 @@ UserList.propTypes = {
   userList: PropTypes.arrayOf(String).isRequired,
   newMsgList: PropTypes.object.isRequired,
   chat: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(UserList);
+export default UserList;
