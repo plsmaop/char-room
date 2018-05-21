@@ -40,7 +40,7 @@ class ChatHistory extends React.Component {
                   msgComponent = (
                     <Message authorName={this.props.targetName}>
                       <MessageText
-                        style={{ maxWidth: '300', textAlign: 'left' }}
+                        style={{ maxWidth: 300, textAlign: 'left' }}
                       >{msg}
                       </MessageText>
                     </Message>
@@ -49,7 +49,7 @@ class ChatHistory extends React.Component {
                 else msgComponent = (
                   <Message isOwn={true} authorName="me" >
                     <MessageText
-                      style={{ maxWidtt: '300', textAlign: 'left' }}
+                      style={{ maxWidth: 300, textAlign: 'left' }}
                     >{msg}
                     </MessageText>
                   </Message>
