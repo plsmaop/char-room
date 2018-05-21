@@ -1,9 +1,6 @@
 import express from 'express';
 import http from 'http';
 import SocketIO from 'socket.io';
-import session from 'express-session';
-import sharedsession from 'express-socket.io-session';
-import sessionstore from 'sessionstore';
 import connectHistoryApiFallback from 'connect-history-api-fallback';
 import UserData from './userData';
 

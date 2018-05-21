@@ -76,7 +76,7 @@ class ResponsiveDrawer extends React.Component {
     const { classes, theme, targetName } = this.props;
     const drawer = (
       <div>
-        <div className={classes.toolbar} style={{ 'background-color': '#3f51b5' }} />
+        <div className={classes.toolbar} style={{ backgroundColor: '#3f51b5' }} />
         <Divider />
         <UserList />
       </div>
