@@ -12,9 +12,7 @@ ReactDOM.render(
   <MuiThemeProvider>
     <ThemeProvider>
       <Provider store={store}>
-        <Router basename="/#">
-          <App />
-        </Router>
+        <App />
       </Provider>
     </ThemeProvider>
   </MuiThemeProvider>,

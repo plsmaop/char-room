@@ -1,7 +1,6 @@
 import express from 'express';
 import http from 'http';
 import SocketIO from 'socket.io';
-import connectHistoryApiFallback from 'connect-history-api-fallback';
 import UserData from './userData';
 
 // config
@@ -41,9 +40,14 @@ io.on('connection', (socket) => {
     const chatHistoryEntry1 = id + targetId;
     const chatHistoryEntry2 = targetId + id;
     if (typeof (chatHistory[chatHistoryEntry1]) === 'undefined') {
-      const chatHistryArray = [];
-      chatHistory[chatHistoryEntry1] = chatHistryArray;
-      chatHistory[chatHistoryEntry2] = chatHistryArray;
+      if (typeof (chatHistory[chatHistoryEntry2]) !== 'undefined') {
+        chatHistory[chatHistoryEntry1] = chatHistory[chatHistoryEntry2];
+      }
+      else {
+        const chatHistryArray = [];
+        chatHistory[chatHistoryEntry1] = chatHistryArray;
+        chatHistory[chatHistoryEntry2] = chatHistryArray;
+      }
     }
     socket.emit('load chat history', chatHistory[chatHistoryEntry1]);
   });
@@ -53,6 +57,16 @@ io.on('connection', (socket) => {
     const { from, to } = msgPacket;
     const chatHistoryEntry1 = from + to;
     const chatHistoryEntry2 = to + from;
+    if (typeof (chatHistory[chatHistoryEntry1]) === 'undefined') {
+      if (typeof (chatHistory[chatHistoryEntry2]) !== 'undefined') {
+        chatHistory[chatHistoryEntry1] = chatHistory[chatHistoryEntry2];
+      }
+      else {
+        const chatHistryArray = [];
+        chatHistory[chatHistoryEntry1] = chatHistryArray;
+        chatHistory[chatHistoryEntry2] = chatHistryArray;
+      }
+    }
     chatHistory[chatHistoryEntry1].push(msgPacket);
     io.to(from).emit('msg', msgPacket);
     console.log(chatHistory[chatHistoryEntry1]);
@@ -77,18 +91,7 @@ io.on('connection', (socket) => {
   });
 });
 
-// session
-/* const socketSession = session({
-  secret: 'my-secret',
-  resave: true,
-  store: sessionstore.createSessionStore(),
-  saveUninitialized: true,
-});
-io.use(sharedsession(socketSession, {
-  autoSave: true,
-}));
-backend.use(socketSession); */
-
-backend.use('/', connectHistoryApiFallback());
+// backend.use('/', (req, res) => res.sendFile(__dirname+'/build/index.html'));
+backend.use(express.static(__dirname+'/build'));
 
 server.listen(port, () => console.log(`listen ${port}`));

@@ -109,7 +109,6 @@ export const chatMiddleware = store => next => (action) => {
   switch (action.type) {
     case types.START_LISTEN:
       console.log('start listen');
-      store.dispatch(actions.updateChatHistory([]));
       socket.socket.on('load chat history', chatHistory =>
         store.dispatch(actions.loadChatHistory(chatHistory)));
       socket.socket.on('msg', (msgPacket) => {
@@ -121,6 +120,7 @@ export const chatMiddleware = store => next => (action) => {
       });
       break;
     case types.CHAT:
+      store.dispatch(actions.updateChatHistory([]));
       socket.createChatRoom(id, action.targetId);
       break;
     case types.SEND_MSG: {
