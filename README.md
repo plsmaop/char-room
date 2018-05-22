@@ -3,7 +3,7 @@
 * [DEMO](http://chat9487.herokuapp.com/) (Deployed on Heroku)
 ## Usage
 * git clone
-`git clone https://github.com/plsmaop/chat-room.git`
+* `git clone https://github.com/plsmaop/chat-room.git`
 * start the server and listen on port 3001
 ```
 cd chat-room/backend
@@ -14,6 +14,6 @@ npm run start
 ```
 cd chat-room
 npm install
-npm start run
+npm run start 
 ```
 ## Directory Tree
