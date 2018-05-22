@@ -14,9 +14,6 @@ const style = {
 };
 
 class ChatHistory extends React.Component {
-  componentWillMount() {
-    document.title = this.props.targetName.length > 0 ? this.props.targetName : 'Chat Room';
-  }
   componentDidMount() {
     this.scrollToBottom();
   }

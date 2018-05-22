@@ -66,8 +66,12 @@ class ResponsiveDrawer extends React.Component {
       mobileOpen: false,
     };
   }
+  componentWillMount() {
+    document.title = this.props.targetName.length > 0 ? this.props.targetName : '匿名交友聊天室';
+  }
   componentDidMount() {
     this.props.startListen();
+    document.title = this.props.targetName.length > 0 ? this.props.targetName : '匿名交友聊天室';
   }
   handleDrawerToggle() {
     this.setState(prevState => ({ mobileOpen: !prevState.mobileOpen }));
