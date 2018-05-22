@@ -120,6 +120,7 @@ export const chatMiddleware = store => next => (action) => {
       break;
     case types.CHAT:
       document.title = action.targetName;
+      store.dispatch(actions.loadChatHistory([]));
       socket.createChatRoom(id, action.targetId);
       break;
     case types.SEND_MSG: {
