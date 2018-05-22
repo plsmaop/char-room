@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { ThemeProvider } from '@livechat/ui-kit';
 import store from './redux/store';
-import './index.css';
 import App from './containers/App';
 
 ReactDOM.render(
