@@ -119,7 +119,7 @@ export const chatMiddleware = store => next => (action) => {
       });
       break;
     case types.CHAT:
-      document.title = actions.targetName;
+      document.title = action.targetName;
       socket.createChatRoom(id, action.targetId);
       break;
     case types.SEND_MSG: {
