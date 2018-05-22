@@ -113,14 +113,14 @@ export const chatMiddleware = store => next => (action) => {
         store.dispatch(actions.loadChatHistory(chatHistory)));
       socket.socket.on('msg', (msgPacket) => {
         const { from } = msgPacket;
-        console.log(msgPacket);
         const { targetId } = store.getState().chatModule;
         if (from === id || from === targetId) store.dispatch(actions.updateChatHistory(msgPacket));
         else store.dispatch(actions.receiveNewMsg(msgPacket));
       });
       break;
     case types.CHAT:
-      store.dispatch(actions.updateChatHistory([]));
+      document.title = action.targetName;
+      // store.dispatch(actions.updateChatHistory([]));
       socket.createChatRoom(id, action.targetId);
       break;
     case types.SEND_MSG: {
