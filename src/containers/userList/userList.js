@@ -14,7 +14,7 @@ import '../../style/style.css';
 
 const style = {
   newMsg: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#cbd0e1',
   },
   selected: {
     backgroundColor: '#3f51b5',
