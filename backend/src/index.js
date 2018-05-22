@@ -92,6 +92,6 @@ io.on('connection', (socket) => {
 });
 
 // backend.use('/', (req, res) => res.sendFile(__dirname+'/build/index.html'));
-// backend.use(express.static(__dirname+'/build'));
+backend.use(express.static(__dirname));
 
 server.listen(port, () => console.log(`listen ${port}`));

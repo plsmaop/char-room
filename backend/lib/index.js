@@ -111,7 +111,7 @@ io.on('connection', function (socket) {
 });
 
 // backend.use('/', (req, res) => res.sendFile(__dirname+'/build/index.html'));
-backend.use(_express2.default.static(__dirname + '/build'));
+backend.use(_express2.default.static(__dirname));
 
 server.listen(port, function () {
   return console.log('listen ' + port);

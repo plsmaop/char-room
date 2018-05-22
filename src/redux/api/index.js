@@ -5,13 +5,7 @@ class Socket {
     this.socket = undefined;
   }
   createSocket() {
-    this.socket = io(
-      'http://localhost:3001',
-      {
-        transports: ['websocket'],
-        upgrade: false,
-      },
-    );
+    this.socket = io();
   }
   emitUserName(name) {
     this.socket.emit('add user', name);
