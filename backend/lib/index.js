@@ -39,6 +39,11 @@ io.on('connection', function (socket) {
   console.log(socket.id);
   socket.emit('user list', userPool);
 
+  socket.on('dickkk', function () {
+    console.log('pong');
+    socket.emit('dickkk');
+  });
+
   // add new user
   socket.on('add user', function (name) {
     console.log('add a user ' + name + ', id: ' + socket.id);
