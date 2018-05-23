@@ -31,6 +31,9 @@ const UserList = ({ userList, chat, newMsgList, targetName }) => (
         userList.map((user) => {
           let msg = '沒有新訊息';
           let listItemStyle;
+          const icon = user.id === 'suck' ?
+            'https://material.io/tools/icons/static/icons/baseline-android-24px.svg' :
+            'https://use.fontawesome.com/releases/v5.0.13/svgs/brands/reddit-alien.svg';
           if (typeof newMsgList[user.id] !== 'undefined') {
             msg = `新訊息：${newMsgList[user.id]}`;
             listItemStyle = style.newMsg;
@@ -42,7 +45,7 @@ const UserList = ({ userList, chat, newMsgList, targetName }) => (
               onClick={() => chat(user.name, user.id)}
               key={user.id}
             >
-              <Avatar imgUrl="https://use.fontawesome.com/releases/v5.0.13/svgs/brands/reddit-alien.svg" />
+              <Avatar imgUrl={icon} />
               <Column fill>
                 <Row justify>
                   <Title ellipsis>{user.name}</Title>

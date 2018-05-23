@@ -109,6 +109,8 @@ export const chatMiddleware = store => next => (action) => {
   switch (action.type) {
     case types.START_LISTEN:
       console.log('start listen');
+      setInterval(() => socket.pong(), 10000);
+
       socket.socket.on('load chat history', chatHistory =>
         store.dispatch(actions.loadChatHistory(chatHistory)));
       socket.socket.on('msg', (msgPacket) => {

@@ -27,6 +27,10 @@ class Socket {
     };
     this.socket.emit('msg', msgPacket);
   }
+  pong() {
+    this.socket.emit('dickkk', 'pong');
+    console.log('pong');
+  }
 }
 
 export const socket = new Socket();
