@@ -5,7 +5,7 @@ import ChatRoom from './chatRoom';
 import AddUser from './addUser';
 
 const App = ({ isReadyToChat }) => (
-  <div className="mx-auto">
+  <div>
     { isReadyToChat ? <ChatRoom /> : <AddUser /> }
   </div>
 );

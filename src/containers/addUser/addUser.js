@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import '../../style/style.css';
 
 const style = {
-  color: '#3f51b5',
+  color: 'white',
   borderColor: '#3f51b5',
 };
 
@@ -52,14 +52,17 @@ class AddUser extends Component {
     const { handleChange, handleKeyPress, handleClick } = this;
     return (
       <div className="container col-md-5 adduser">
-        <h2>歡迎來到匿名交友聊天室</h2>
+        <h2 style={{ color: 'white' }}>歡迎來到匿名交友聊天室</h2>
         <div>
           <TextField
-            hintText={name}
+            value={name}
             floatingLabelText="請輸入暱稱開始聊天"
             onChange={e => handleChange(e)}
             underlineFocusStyle={style}
+            floatingLabelShrinkStyle={{ color: 'white' }}
             floatingLabelFocusStyle={style}
+            floatingLabelStyle={style}
+            inputStyle={{ color: 'white' }}
             onKeyPress={e => handleKeyPress(e)}
           />
         </div>
