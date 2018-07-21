@@ -122,7 +122,11 @@ export const chatMiddleware = store => next => (action) => {
       break;
     case types.CHAT:
       document.title = action.targetName;
+<<<<<<< HEAD
       // store.dispatch(actions.updateChatHistory([]));
+=======
+      store.dispatch(actions.loadChatHistory([]));
+>>>>>>> google-deploy
       socket.createChatRoom(id, action.targetId);
       break;
     case types.SEND_MSG: {
